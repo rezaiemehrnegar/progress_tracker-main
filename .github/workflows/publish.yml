@@ -1,0 +1,30 @@
+name: Publish Package
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - CHANGELOG.md
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: pub.dev
+    outputs:
+      success: ${{ steps.package.outputs.success }}
+      version: ${{ steps.package.outputs.localVersion }}
+    steps:
+        - name: Checkout repository
+          uses: actions/checkout@v4
+        - name: Publish package
+          id: package
+          uses: k-paxian/dart-package-publisher@master
+          with:
+            accessToken: ${{ secrets.OAUTH_ACCESS_TOKEN }}
+            refreshToken: ${{ secrets.OAUTH_REFRESH_TOKEN }}
+            credentialJson: ${{ secrets.CREDENTIAL_JSON }}
+            flutter: true
+            force: true
+            format: true
+            skipTests: true
