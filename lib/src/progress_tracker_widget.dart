@@ -32,12 +32,12 @@ class ProgressTracker extends StatelessWidget {
   /// The [activeColor] and [inActiveColor] parameters define the colors for active and inactive elements.
 
   const ProgressTracker({
-    Key? key,
+    super.key,
     required this.currentIndex,
     required this.statusList,
     this.activeColor = Colors.green,
     this.inActiveColor = Colors.grey,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
